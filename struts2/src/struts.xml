@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<!-- 设置临时文件的存放地址  Tomcat/webAPP下-->
+	<constant name="struts.multipart.saveDir" value="/temp"/>
+	
+	<constant name="struts.devMode" value="true" />
+	<!-- 设置上传的文件大小限制，默认是2M-->
+   	<constant name="struts.multipart.maxSize" value="1000000" />
+	<package name="com.guowenjie.action" namespace="/" extends="struts-default">
+		
+		<action name="FileUploadAction" class="com.guowenjie.action.FileUploadAction">
+			<!-- 自己定义的文件上传拦截器。拦截属性可以相应的设置-->
+			<interceptor-ref name="fileUpload">
+				<param name="allowedTypes">image/bmp,image/png,image/gif,image/jpeg,image/jpg,image/pjpeg ,image/bmp, image/gif, image/x-png</param>
+				<param name="maximumSize">102400</param>
+			</interceptor-ref>
+			<!-- 这是Struts2的默认拦截器，因为拦截器的执行是顺序的。所以自己定义的拦截器要写在默认的拦截器的前面-->
+			<interceptor-ref name="defaultStack"/>
+	    	<result name="success">/upload.jsp</result>
+	    	<result name="input">/uploaderror.jsp</result>
+	</action>
+	</package>
+	<package name="struts2" namespace="/" extends="json-default">
+        <action name="fileAction" class="com.guowenjie.action.FileAction">
+            <result type="json" name="success">
+            	<param name="includeProperties">message</param>
+            </result>
+        </action>
+    </package>
+</struts>    
