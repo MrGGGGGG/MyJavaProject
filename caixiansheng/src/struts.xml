@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+		<!-- 【拦截器配置】 -->
+	<package name="user" namespace="/" extends="struts-default">
+	<!--<interceptors>
+			<interceptor name="loginCheck" class="com.cxs.interceptor.UserCheckInterceptor"></interceptor>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="loginCheck"></interceptor-ref>
+			</interceptor-stack>
+	</interceptors>
+	<default-interceptor-ref name="myStack"></default-interceptor-ref>
+	-->
+		<!-- 全局配置 -->
+		<global-results>
+			<result name="error">/error.jsp</result>
+			<result name="weidenglu">/weidenglu.jsp</result>
+		</global-results>
+		<action name="user_*" class="com.cxs.action.UserAction" method="{1}">
+			<!-- 登录失败 -->
+			<result name="login">/login.jsp</result>
+			<!-- 登录成功 -->
+			<result name="loginsuccess">/index.jsp</result>
+			<!-- 注销成功 -->
+			<result name="logoutsuccess">/index.jsp</result>
+		</action>
+	</package>
+	<package name="product" extends="struts-default">
+		<action name="product_*" class="com.cxs.action.ProductAction" method="{1}">
+			<!-- 查找所有产品成功 -->
+			<result name="findallproductsuccess">/fruit.jsp</result>
+			<result name="findallproductfailed">/notfoundproduct.jsp</result>
+		</action>
+		<action name="search_*" class="com.cxs.action.SearchAction" method="{1}">
+			<result name="searchresult">/searchresult.jsp</result>
+			<result name="nosearchresult">/searchresult.jsp</result>
+		</action>
+	</package>
+	<package name="order" extends="struts-default">
+		<action name="order_*" class="com.cxs.action.OrderAction" method="{1}">
+			<result name="orderaddsuccess">/ordersuccess.jsp</result>
+			<result name="orderaddfaild">/orderfaild.jsp</result>
+			<result name="myorder">/myorder.jsp</result>
+			<result name="orderdeletesuccess">/deletesuccess.jsp</result>
+			<result name="orderdeletefaild">/error.jsp</result>
+			<result name="weidenglu">/weidenglu.jsp</result>
+		</action>
+		<action name="pay_*" class="com.cxs.action.PayAction" method="{1}">
+			<result name="paysuccess">/paysuccess.jsp</result>
+			<result name="payfaild">/payfaild.jsp</result>
+		</action>
+	</package>
+	<package name="admin" extends="struts-default">
+		<action name="admin_*" class="com.cxs.action.AdminAction" method="{1}">
+			<result name="managerindex">/managerindex.jsp</result>
+			<result name="managerlogin">/managerlogin.jsp</result>
+			<result name="chanpinguanli">/chanpinguanli.jsp</result>
+			<result name="weidenglu">/weidenglu.jsp</result>
+		</action>
+	</package>
+	<package name="message" extends="struts-default">
+		<action name="message_*" class="com.cxs.action.MessageAction" method="{1}">
+			<result name="createmessagesuccess">/messagebroad.jsp</result>
+			<result name="createmessagefaild">/messagebroad.jsp</result>
+			<result name="showfriendmessage">/messagebroad.jsp</result>
+		</action>
+	</package>
+	<package name="register"  namespace="/" extends="struts-default">
+	    <action name="register_*" class="com.cxs.action.RegisterAction" method="{1}">
+	       
+	        <result name="success">/login.jsp</result>
+	        <result name="error">/error.jsp</result>
+	    </action>
+	</package>
+	<package name="cart" extends="struts-default">
+	    <action name="cart_*" class="com.cxs.action.CartAction" method="{1}">
+	        <result name="success">/error.jsp</result>
+	        <result name="fail">/login.jsp</result>
+	        <result name="showcart">/showcart.jsp</result>
+	    </action>
+	 </package>   
+	 <package name="evaluate" extends="struts-default">
+	     <action name="eva_*" class="com.cxs.action.EvaluateAction" method="{1}">
+	         <result name="showeva">/detail.jsp</result>
+	         <result name="publishsuccess">/evaluate.jsp</result>
+	         <result name="fail">/error.jsp</result>
+	     </action>
+	</package>
+</struts>    

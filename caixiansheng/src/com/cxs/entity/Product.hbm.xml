@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.cxs.entity.Product" table="product">
+		<id name = "pid" type="int">
+			<generator class="native"/>
+		</id>
+		<property name="pname" type="string"></property>
+		<property name="pintro" type="string"></property>
+		<property name="pcount" type="int"></property>
+		<property name="price" type="double"></property>
+		<property name="picture" type="string"></property>
+		<property name="pdate" type="date"></property>
+		<property name="fid" type="int"></property>
+		<property name="typeid" type="int"></property>
+		<property name="syid" type="int"></property>
+	</class>
+</hibernate-mapping>

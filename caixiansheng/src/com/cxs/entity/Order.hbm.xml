@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.cxs.entity.Order" table="order">
+		<id name = "onumber" type="int">
+			<generator class="native"/>
+		</id>
+		<property name="oprice" type="double"></property>
+		<property name="odate" type="java.util.Date"></property>
+		<property name="olog" type="string"></property>
+		<property name="evid" type="int"></property>
+		<property name="cid" type="int"></property>
+		<property name="pid" type="int"></property>	
+	</class>
+</hibernate-mapping>

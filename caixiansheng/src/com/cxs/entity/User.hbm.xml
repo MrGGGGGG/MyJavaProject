@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.cxs.entity.User" table="customer">
+		<id name = "cid" type="int">
+			<generator class="native"/>
+		</id>
+		<property name="cpsd" type="string"></property>
+		<property name="cname" type="string"></property>
+		<property name="chead" type="string"></property>
+		<property name="ctel" type="string"></property>
+		<property name="cEmail" type="string"></property>
+		<property name="csex" type="string"></property>	
+		<property name="cdate" type="date"></property>	
+	</class>
+</hibernate-mapping>
