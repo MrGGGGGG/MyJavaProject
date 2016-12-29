@@ -37,7 +37,8 @@
 					},
 					error : function(data, status, e) {
 						//var D=JSON.parse(data);
-						alert(e);
+						alert(data);
+						//alert("00"+e);
 					}
 				}
 			)
@@ -91,12 +92,29 @@
 		});
 	});
  -->
+
+
+<style>
+#file {
+	display: none;
+}
+
+.liulan {
+	background-color: white;
+	outline: none;
+	border: none;
+}
+.liulanimg{
+	width:40px;
+	height: 30px;
+}
+</style>
 </head>
 
 <body>
 	<div id="sc" style="width: 100%; float: left;">
+	<button class="liulan" onclick="file.click()"><img class="liulanimg" src="images/camera.png"></button>
 	<form id="uploadform" action="fileAction.action" onsubmit="stopload()">
-		<input type="text">
 		<input id="file" type="file" name="file" />
 		<button id="upbutton" class="upload" onclick="return false;">上传</button>
 	</form>

@@ -83,6 +83,7 @@ public class FileAction  extends ActionSupport {
 			oo.write(buffer);
 		}
 		os.close();
+		oo.close();
 		is.close();
 		//HashMap<String, Object> data = new HashMap<String, Object>();
 		//data.put("message", realPath+"\\"+this.getFileFileName());
