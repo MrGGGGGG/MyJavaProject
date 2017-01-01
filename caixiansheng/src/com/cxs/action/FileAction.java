@@ -1,4 +1,4 @@
-package com.guowenjie.action;
+package com.cxs.action;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,8 +20,7 @@ public class FileAction  extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	private File file;
 	private String fileFileName;
-	private String fileFileContentType;
-	private String message = "0"; // 0格式错误 1成功(文件路径)  2失败
+	private String message; 
 	private String filePath;
 	
 	public String getFilePath() {
@@ -55,21 +54,12 @@ public class FileAction  extends ActionSupport {
 	public void setFileFileName(String fileFileName) {
 		this.fileFileName = fileFileName;
 	}
-
-	public String getFileFileContentType() {
-		return fileFileContentType;
-	}
-
-	public void setFileFileContentType(String fileFileContentType) {
-		this.fileFileContentType = fileFileContentType;
-	}
 	@Override
 	public String execute() throws Exception{
-		String realPath = "E:/GitRepositories/struts2/WebRoot/upload";  
-		String serverPath=ServletActionContext.getServletContext().getRealPath("upload");
+		String realPath = "E:/GitRepositories/caixiansheng/WebRoot/images";  
+		String serverPath=ServletActionContext.getServletContext().getRealPath("images");
 		System.out.println("文件："+this.file);
 		System.out.println("文件名称："+this.fileFileName);
-		System.out.println("文件类型："+this.fileFileContentType);
 		System.out.println("realpath:" + realPath);
 		InputStream is = new FileInputStream(file);
 		OutputStream os = new FileOutputStream(new File(realPath,fileFileName));
@@ -85,9 +75,6 @@ public class FileAction  extends ActionSupport {
 		os.close();
 		oo.close();
 		is.close();
-		//HashMap<String, Object> data = new HashMap<String, Object>();
-		//data.put("message", realPath+"\\"+this.getFileFileName());
-		//message=realPath+"/"+this.getFileFileName();
 		message = fileFileName;
 		return SUCCESS;
 	}

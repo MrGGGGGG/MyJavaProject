@@ -8,7 +8,6 @@
 	<!-- 设置上传的文件大小限制，默认是2M-->
    	<constant name="struts.multipart.maxSize" value="1000000" />
 	<package name="com.guowenjie.action" namespace="/" extends="struts-default">
-		
 		<action name="FileUploadAction" class="com.guowenjie.action.FileUploadAction">
 			<!-- 自己定义的文件上传拦截器。拦截属性可以相应的设置-->
 			<interceptor-ref name="fileUpload">

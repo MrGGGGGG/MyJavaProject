@@ -87,4 +87,12 @@
 	         <result name="fail">/error.jsp</result>
 	     </action>
 	</package>
+	<!-- ajax上传图片 -->
+	<package name="struts2" namespace="/" extends="json-default">
+        <action name="fileAction" class="com.cxs.action.FileAction">
+            <result type="json" name="success">
+            	<param name="includeProperties">message</param>
+            </result>
+        </action>
+    </package>
 </struts>    

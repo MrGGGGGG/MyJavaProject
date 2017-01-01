@@ -20,6 +20,9 @@
 <meta http-equiv="description" content="This is my page">
 <link rel="stylesheet" type="text/css" href="css/messagebroad.css">
 <script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.8.0.js"></script>
+<script type="text/javascript" src="js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="js/messagebroad.js"></script>
 </head>
 
 <body background="images/背景.png" style="margin:0">
@@ -80,7 +83,12 @@
 					<textarea style="outline: none;width:100%;height: 100%;" name="message_text"></textarea>
 				</div>
 				<div class="under-above-below">
-					<div class="tietu-btn"><img id="tietu-ico" class="tietu-ico" src="images/camera.png"></div>
+					<input id="file" type="file" name="file" />
+					<input class="imgtempname" id="pic1" type="text" name="pic1" />
+					<input class="imgtempname" id="pic2" type="text" name="pic2" />
+					<input class="imgtempname" id="pic3" type="text" name="pic3" />
+					<button class="tietu-btn" onclick="file.click()"><img id="tietu-ico" class="tietu-ico" src="images/camera.png" onclick="return false;"></button>
+					<button id="upbutton" class="upload" onclick="return false;">上传</button>
 					<button type="submit" class="fabiao-btn">发表</button>
 				</div>
 			</form>

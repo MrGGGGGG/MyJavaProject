@@ -144,7 +144,6 @@
 .under-above{
 	margin:15px;
 	width:54%;
-	height:120px;
 	background-color:#FFF;
 	float:right;
 	border:solid 1.5px #C7C7C7;
@@ -186,7 +185,7 @@
 	font-family: "宋体";
 	border-radius: 2px;
 	float: left;
-	margin-left: 420px;
+	margin-left: 350px;
 	padding: 0;
 }
 .message-box{
@@ -244,4 +243,10 @@
 	background-color:white;
 	border:none;
 	outline: none;
+}
+#file{
+	display: none;
+}
+.imgtempname{
+	display: none;
 }

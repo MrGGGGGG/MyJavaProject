@@ -24,7 +24,28 @@ public class MessageAction extends SuperAction {
 	private static final long serialVersionUID = 1L;
 	
 	private String message_text;
+	private String pic1;
+	private String pic2;
+	private String pic3;
 	
+	public String getPic1() {
+		return pic1;
+	}
+	public void setPic1(String pic1) {
+		this.pic1 = pic1;
+	}
+	public String getPic2() {
+		return pic2;
+	}
+	public void setPic2(String pic2) {
+		this.pic2 = pic2;
+	}
+	public String getPic3() {
+		return pic3;
+	}
+	public void setPic3(String pic3) {
+		this.pic3 = pic3;
+	}
 	public String getMessage_text() {
 		return message_text;
 	}
@@ -42,10 +63,14 @@ public class MessageAction extends SuperAction {
 		Message msg  = new Message();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		System.out.println("发表的内容："+ message_text);
+		System.out.println(pic1);
+		System.out.println(pic2);
+		System.out.println(pic3);
 		msg.setMessage_time(sdf.format(new Date()));
 		msg.setCid((Integer)session.getAttribute("userid"));
 		msg.setCname((String)session.getAttribute("userinfo"));
 		msg.setMessage_text(message_text);
+		msg.setMessage_img(pic1);
 		boolean iscreate = messageservice.doCreate(msg);
 		if(iscreate == true){
 			showAllMessagesById();

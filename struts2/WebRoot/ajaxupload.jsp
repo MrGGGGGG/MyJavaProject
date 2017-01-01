@@ -30,7 +30,7 @@
 					fileElementId : 'file',
 					dataType : 'json',
 					success : function(data,status) {
-						alert(data.message);
+						//alert(data.message);
 						//alert(data.message);
 						//$("#yulanimg").attr("src",data.message);
 						$("#sc").after("<img id='yulanimg' src='upload/"+data.message+"' style='width: 100px;height: 100px;'>");
@@ -116,6 +116,7 @@
 	<button class="liulan" onclick="file.click()"><img class="liulanimg" src="images/camera.png"></button>
 	<form id="uploadform" action="fileAction.action" onsubmit="stopload()">
 		<input id="file" type="file" name="file" />
+		
 		<button id="upbutton" class="upload" onclick="return false;">上传</button>
 	</form>
 	</div>
