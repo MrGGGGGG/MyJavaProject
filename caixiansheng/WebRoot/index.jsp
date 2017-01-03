@@ -16,13 +16,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta http-equiv="Cache-Control" content="no-transform">
 <meta http-equiv="Cache-Control" content="no-siteapp">
-<meta name="mobile-agent" content="format=html5;url=http://m.cnhnb.com/">
 <title>菜鲜生</title>
 <script charset="utf-8" src="./source/v.js"></script>
 <script type="text/javascript" src="./source/mobileRedirect.js"></script>
-<script type="text/javascript">
-	uaredirect("http://m.cnhnb.com");
-</script>
 <link rel="stylesheet" href="./source/base.min.css">
 <link rel="stylesheet" href="./source/common.min.css">
 <link rel="stylesheet" href="./source/bottomanimate.min.css">
@@ -112,7 +108,7 @@
 					</div>
 					<div class="dropdown-layer dd-help-center">
 						<p>
-							<a href="">常见问题</a> <a href="">联系客服</a>
+							<a href="">常见问题</a> <a href="service.jsp">联系客服</a>
 						</p>
 					</div>
 				</li>
@@ -402,7 +398,7 @@
 						<a title="胡萝卜"> <img src="./img/胡萝卜.jpg" alt="胡萝卜" width=166px
 							height=134px;></a> <a title="西兰花"> <img src="./img/西兰花.jpg"
 							alt="西兰花" width=166px height=134px;></a> <a title="柠檬"> <img
-							src="./img/柠檬.JPG" alt="柠檬" width=166px height=134px;></a>
+							src="./img/lemon.jpg" alt="柠檬" width=166px height=134px;></a>
 					</div>
 				</div>
 

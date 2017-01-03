@@ -114,7 +114,7 @@ public class ProductAction extends SuperAction {
 			e.printStackTrace();
 		}
 		product.setPicture(fileFileName);
-		System.out.println(product.toString());
+		//System.out.println(product.toString());
 		boolean iscreat = productservice.docreat(product);
 		if(iscreat==true){
 			List<Product> list = productservice.getAllProduct();

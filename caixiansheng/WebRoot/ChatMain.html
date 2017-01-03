@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>聊天大厅</title>
+        <script language="javascript" type="text/javascript" src="jquery-1.8.0.min.js"></script>
+		<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="js/chat.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/chat.css" />
+		<link rel="stylesheet" type="text/css" href="css/layout.css" />
+<script type="text/javascript" src="js/common.js"></script>
+        <style type="text/css">
+            body{font-size:12px;text-align:center;margin:0;padding:0;}
+            .head{
+            width:100%;
+            height: 60px;
+            background-color:#14A4FF;
+            margin:0;
+            padding:0;
+            position:relative;
+            z-index:99999;
+            }
+            .head img{
+            	position:relative;
+            	left:40px;
+            }
+            #divMain{
+            	
+            }
+            .divShow{
+            	text-align:left;
+            	border:solid 1px #ccc;
+            	height:520px;
+            	padding:10px;
+            	padding-left:30px;
+            	font-size:18px;
+            	overflow-y:scroll
+            }
+            .divShow font{
+            color:blue;
+            font-size:18px;
+            }
+            
+            #divMain{
+            	width:100%;
+            	border:solid #fff；
+            	border-style:solid none none none;
+            }
+            #divMain .divtip{
+            	padding:10px;
+            }
+            #divMain .divtop{
+            	width:100%;
+            }
+            #divMain .divtop .divL{
+            	background-color:#fff;
+            	float:left;
+            	width:80%;
+            	
+            }
+            #divMain .divtop .divR{
+            	float:right;
+            	width:20%;
+            	height:370px;
+            }
+            #divMain .divtop .divR h1{
+            	text-align:center;
+            }
+            #divMain .divBot{
+            	clear:both;
+            	padding-left:20px;
+            }
+            #divFace{
+            	text-align:left;
+            }
+            #textarea{
+            	border:solid 1px #ccc;
+            	padding:10px;
+            	height:66px;
+            	width:78%;
+            	position:relative;
+            	left:-15px;
+            }
+            .button{
+            	text-align:center;
+            	width: 50px;
+   				height: 30px;
+    			font-size: 16px;
+    			font-family: "宋体";
+    			color: #fff;
+    			background: #14A4FF;
+   				border: none;
+        		border-radius: 5px;
+    			cursor: pointer;
+    			position:relative;
+    			left:-5px;
+    			bottom: 10px;
+            }
+            #spnMsg{position:absolute;border:solid 1px #cc3300;padding:2px;background-color:#ffe0a3;display:none}
+        </style>
+
+        <script language="javascript" type="text/javascript">
+            $(function(){
+            	//键盘监听
+            	$(document).keypress(function(e){
+            		if(e.which==13){
+            			SendContent($("#textarea").val());
+            			goToBottom();
+            		}
+            	});
+            	//读取消息
+            	GetMessageList();
+            	//读取在线用户
+            	GetOnlineUsers();
+            	//初始化表情
+            	InitFaces();
+            	//自动刷新
+            	AutoRefresh();
+            	//发送按钮事件响应
+            	$("#Button1").click(function(){
+            		var $content=$("#textarea");
+            		if($content.val()!=""){
+            			SendContent($content.val());
+            		}else{
+            			alert("发送内容不能为空！");
+            			return false;
+            		}
+            	});
+            	$("#Button2").click(function(){
+            		if(confirm("确认下线？")){
+            			OffLine();
+            		}
+            	});
+            	//发送消息
+            	function SendContent(content){
+            		$.ajax({
+            			type:"POST",
+            			url:"DealData.jsp",
+            			data:"action=SendContent&d="+new Date()+"&content="+content,
+            			success:function(data){
+            				if(data.indexOf("True")){
+            					//获取消息
+            					GetMessageList();
+            					//清空发送框
+            					$("#textarea").val("");
+            					
+            					goToBottom();
+            					//alert('shit for SendMessage');
+            				}else{
+            					alert("发送失败");
+            				}
+            			}
+            		});
+            	}
+            	//获取消息
+            	function GetMessageList(){
+            		$.ajax({
+            			type:"POST",
+            			url:"DealData.jsp",
+            			data:"action=ChatList&d="+new Date(),
+            			success:function(data){
+            				if(data.indexOf("unLogin")>0){
+            					alert("非法进入，请先登录！");
+            					window.location="login.jsp";
+            				}else{
+            					$("#divContent").html(data);
+            				}
+            				//alert('shit for GetMessage');
+            			}
+            		});
+            	}
+            	//获取在线用户列表
+            	function GetOnlineUsers(){
+            		$.ajax({
+            			type:"POST",
+            			url:"DealData.jsp",
+            			data:"action=onLineList&d="+new Date(),
+            			success:function(data){
+            				$("#divOnline").html(data);
+            				//alert('shit for GetOnlineUsers');
+            			}
+            		});
+            	}
+            	//设置表情
+            	function InitFaces(){
+            		var strHTML="";
+            		for(var i=1;i<=7;i++){
+            			strHTML+="<img src='QQface/"+i+".gif' id='"+i+"'/>";
+            		}
+            		$("#divFace").html(strHTML);
+            	}
+            	//图片监听
+            	$("table tbody tr td img").click(function(){
+            		var $txtContent=$("#textarea");
+            		if($txtContent.val()!=undefined){
+            			var strContent=$txtContent.val()+"<:"+this.id+":>";
+            		}else{
+            			var strContent="<:"+this.id+":>";
+            		} 
+                    $("#textarea").val(strContent);
+                });
+            	
+            	
+            	//下线
+            	function OffLine(){
+            		$.ajax({
+            			type:"POST",
+            			url:"DealData.jsp",
+            			data:"action=OffLine&d="+new Date(),
+            			success:function(data){
+            				if(data.indexOf("True")>0){
+            					alert("成功下线！");
+            					window.location="index.jsp";
+            				}
+            				//alert('shit for GetOnlineUsers');
+            			}
+            		});
+            	}
+            	//到底部去
+            	function goToBottom(){
+            		div=document.getElementById("divContent");
+					div.scrollTop = div.scrollHeight;
+            	}
+            	//自动更新页面信息
+            	function AutoRefresh(){
+            		setInterval(GetMessageList,2000);
+            		setInterval(GetOnlineUsers,4000);
+            	}
+            });
+        </script>
+    </head>
+    <body>
+    <div class="head">
+    	<img  src="images/kefulogo.png" width="300" height="60">
+    </div>
+        <div id="divMain">
+        	<div class="divtop">
+        		<div class="divL">
+        			
+        			<div class="divShow" id="divContent"></div>
+        		</div>
+        		<div class="divR">
+        			<h1 >在线成员</h1>
+        			<div class="divShow" id="divOnline"></div>
+        		</div>
+        	</div>
+        	
+        	<div class="divBot">
+        	
+        	
+        	 <div class="chat02_title">
+                        <a class="chat02_title_btn ctb01" href="javascript:;"></a><a class="chat02_title_btn ctb02"
+                            href="javascript:;" title="选择文件">
+                            <embed width="15" height="16" flashvars="swfid=2556975203&amp;maxSumSize=50&amp;maxFileSize=50&amp;maxFileNum=1&amp;multiSelect=0&amp;uploadAPI=http%3A%2F%2Fupload.api.weibo.com%2F2%2Fmss%2Fupload.json%3Fsource%3D209678993%26tuid%3D1887188824&amp;initFun=STK.webim.ui.chatWindow.msgToolBar.upload.initFun&amp;sucFun=STK.webim.ui.chatWindow.msgToolBar.upload.sucFun&amp;errFun=STK.webim.ui.chatWindow.msgToolBar.upload.errFun&amp;beginFun=STK.webim.ui.chatWindow.msgToolBar.upload.beginFun&amp;showTipFun=STK.webim.ui.chatWindow.msgToolBar.upload.showTipFun&amp;hiddenTipFun=STK.webim.ui.chatWindow.msgToolBar.upload.hiddenTipFun&amp;areaInfo=0-16|12-16&amp;fExt=*.jpg;*.gif;*.jpeg;*.png|*&amp;fExtDec=选择图片|选择文件"
+                                data="upload.swf" wmode="transparent" bgcolor="" allowscriptaccess="always" allowfullscreen="true"
+                                scale="noScale" menu="false" type="application/x-shockwave-flash" src="http://service.weibo.com/staticjs/tools/upload.swf?v=36c9997f1313d1c4"
+                                id="swf_3140">
+                        </a><a class="chat02_title_btn ctb03" href="javascript:;" title="选择附件">
+                            <embed width="15" height="16" flashvars="swfid=2556975203&amp;maxSumSize=50&amp;maxFileSize=50&amp;maxFileNum=1&amp;multiSelect=0&amp;uploadAPI=http%3A%2F%2Fupload.api.weibo.com%2F2%2Fmss%2Fupload.json%3Fsource%3D209678993%26tuid%3D1887188824&amp;initFun=STK.webim.ui.chatWindow.msgToolBar.upload.initFun&amp;sucFun=STK.webim.ui.chatWindow.msgToolBar.upload.sucFun&amp;errFun=STK.webim.ui.chatWindow.msgToolBar.upload.errFun&amp;beginFun=STK.webim.ui.chatWindow.msgToolBar.upload.beginFun&amp;showTipFun=STK.webim.ui.chatWindow.msgToolBar.upload.showTipFun&amp;hiddenTipFun=STK.webim.ui.chatWindow.msgToolBar.upload.hiddenTipFun&amp;areaInfo=0-16|12-16&amp;fExt=*.jpg;*.gif;*.jpeg;*.png|*&amp;fExtDec=选择图片|选择文件"
+                                data="upload.swf" wmode="transparent" bgcolor="" allowscriptaccess="always" allowfullscreen="true"
+                                scale="noScale" menu="false" type="application/x-shockwave-flash" src="http://service.weibo.com/staticjs/tools/upload.swf?v=36c9997f1313d1c4"
+                                id="swf_3140">
+                        </a>
+                        <label class="chat02_title_t">
+                            <a href="" target="_blank">聊天记录</a></label>
+                        <div class="wl_faces_box">
+                            <div class="wl_faces_content">
+                                <div class="title">
+                                    <ul>
+                                        <li class="title_name">聊天表情</li><li class="wl_faces_close"><span>&nbsp;</span></li></ul>
+                                </div>
+                                <div class="wl_faces_main">
+                                    <ul>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_01.gif" /></a></li><li><a href="javascript:;">
+                                                <img src="img/emo_02.gif" /></a></li><li><a href="javascript:;">
+                                                    <img src="img/emo_03.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_04.gif" /></a></li><li><a href="javascript:;">
+                                                <img src="img/emo_05.gif" /></a></li><li><a href="javascript:;">
+                                                    <img src="img/emo_06.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_07.gif" /></a></li><li><a href="javascript:;">
+                                                <img src="img/emo_08.gif" id="8"/></a></li><li><a href="javascript:;">
+                                                    <img src="img/emo_09.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_10.gif" /></a></li><li><a href="javascript:;">
+                                                <img src="img/emo_11.gif" /></a></li><li><a href="javascript:;">
+                                                    <img src="img/emo_12.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_13.gif" /></a></li><li><a href="javascript:;">
+                                                <img src="img/emo_14.gif" /></a></li><li><a href="javascript:;">
+                                                    <img src="img/emo_15.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_16.gif" /></a></li><li><a href="javascript:;">
+                                                <img src="img/emo_17.gif" /></a></li><li><a href="javascript:;">
+                                                    <img src="img/emo_18.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_19.gif" /></a></li><li><a href="javascript:;">
+                                                <img src="img/emo_20.gif" /></a></li><li><a href="javascript:;">
+                                                    <img src="img/emo_21.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_22.gif" /></a></li><li><a href="javascript:;">
+                                                <img src="img/emo_23.gif" /></a></li><li><a href="javascript:;">
+                                                    <img src="img/emo_24.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_25.gif" /></a></li><li><a href="javascript:;">
+                                                <img src="img/emo_26.gif" /></a></li><li><a href="javascript:;">
+                                                    <img src="img/emo_27.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_28.gif" /></a></li><li><a href="javascript:;">
+                                                <img src="img/emo_29.gif" /></a></li><li><a href="javascript:;">
+                                                    <img src="img/emo_30.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_31.gif" /></a></li><li><a href="javascript:;">
+                                                <img src="img/emo_32.gif" /></a></li><li><a href="javascript:;">
+                                                    <img src="img/emo_33.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_34.gif" /></a></li><li><a href="javascript:;">
+                                                <img src="img/emo_35.gif" /></a></li><li><a href="javascript:;">
+                                                    <img src="img/emo_36.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_37.gif" /></a></li><li><a href="javascript:;">
+                                                <img src="img/emo_38.gif" /></a></li><li><a href="javascript:;">
+                                                    <img src="img/emo_39.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_40.gif" /></a></li><li><a href="javascript:;">
+                                                <img src="img/emo_41.gif" /></a></li><li><a href="javascript:;">
+                                                    <img src="img/emo_42.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_43.gif" /></a></li><li><a href="javascript:;">
+                                                <img src="img/emo_44.gif" /></a></li><li><a href="javascript:;">
+                                                    <img src="img/emo_45.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_46.gif" /></a></li><li><a href="javascript:;">
+                                                <img src="img/emo_47.gif" /></a></li><li><a href="javascript:;">
+                                                    <img src="img/emo_48.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_49.gif" /></a></li><li><a href="javascript:;">
+                                                <img src="img/emo_50.gif" /></a></li><li><a href="javascript:;">
+                                                    <img src="img/emo_51.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_52.gif" /></a></li><li><a href="javascript:;">
+                                                <img src="img/emo_53.gif" /></a></li><li><a href="javascript:;">
+                                                    <img src="img/emo_54.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_55.gif" /></a></li><li><a href="javascript:;">
+                                                <img src="img/emo_56.gif" /></a></li><li><a href="javascript:;">
+                                                    <img src="img/emo_57.gif" /></a></li>
+                                        <li><a href="javascript:;">
+                                            <img src="img/emo_58.gif" /></a></li><li><a href="javascript:;">
+                                                <img src="img/emo_59.gif" /></a></li><li><a href="javascript:;">
+                                                    <img src="img/emo_60.gif" /></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="wlf_icon">
+                            </div>
+                        </div>
+        	
+        	
+        	
+        		<table>
+        			<tr><td colspan="2" id="divFace" class="pb"></td></tr>
+        		</table>
+        	
+        			<div>
+        					<textarea id="textarea" class="txt" rows="3" cols="64"></textarea>
+        					<input id="Button1" class="button" type="button" value="发送" class="btn" />
+        					<input id="Button2" class="button" type="button" value="退出" class="btn" />
+        			</div>		
+        	</div>
+            
+
+            <span id="spnMsg" class="clsTip">正在发送数据...</span>
+        </div>
+        <div class="suspend">
+  <dl>
+    <dt class="IE6PNG"></dt>
+    <dd class="suspendQQ"><a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2517781703&amp;site=qq&amp;menu=yes" target="_blank"></a></dd>
+    <dd class="suspendTel"><a href="javascript:void(0);"></a></dd>
+  </dl>
+</div>
+
+<script type="text/javascript">           
+Common.init();
+</script>
+    </body>
+</html>

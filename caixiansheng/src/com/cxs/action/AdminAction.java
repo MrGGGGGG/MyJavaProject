@@ -18,7 +18,7 @@ public class AdminAction extends SuperAction{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	////1、封装请求数据
+	//1、封装请求数据
 	private Admin admin;
 	private String[] chkName;  
 	public String[] getChkName(){  
