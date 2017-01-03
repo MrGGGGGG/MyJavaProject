@@ -35,8 +35,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<img src="images/head.png" width="110" height="125">
 					</div>
 					<div class="username">
-						<a style="font-size:x-large" class="userlink">Welcome</a> <font
-							style="font-size:large" class="wel">${admininfo}</font>
+						<a style="font-size:x-large" class="userlink">Welcome</a> 
+						<font style="font-size:large" class="wel">${admininfo}</font><br><br><br><br>
+						<a style="font-size: small;text-decoration: none;" href="${pageContext.request.contextPath}/admin_logout.action">安全退出</a>
 					</div>
 				</div>
 				<div class="left-below2">
@@ -46,22 +47,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<img src="images/tubiao1.png" width="25" height="25">
 							</div> <a
 							href="${pageContext.request.contextPath}/admin_showAllProduct.action"
-							target="content">删除产品</a>
-						</li>
-						<li type="friend" class="list1">
-							<div class="tubaio">
-								<img src="images/tubiao3.png" width="25" height="25">
-							</div> <a href="nonghuguanli.jsp" target="content">农户管理</a>
+							target="content">产品管理</a>
 						</li>
 						<li type="friend" class="list1">
 							<div class="tubaio">
 								<img src="images/tubiao2.png" width="25" height="25">
-							</div> <a href="kehuguanli.jsp" target="content">客户管理</a>
+							</div> <a href="${pageContext.request.contextPath}/admin_FindAllUser.action" target="content">客户管理</a>
 						</li>
 						<li type="friend" class="list1">
 							<div class="tubaio">
 								<img src="images/tubiao4.png" width="25" height="25">
-							</div> <a href="dingdanguanli.jsp" target="content">订单管理</a>
+							</div> <a href="${pageContext.request.contextPath}/admin_findAllOrder.action" target="content">订单管理</a>
 						</li>
 					</ul>
 				</div>

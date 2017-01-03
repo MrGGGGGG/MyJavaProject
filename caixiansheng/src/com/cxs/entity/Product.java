@@ -9,7 +9,7 @@ public class Product {
 	private int pcount;
 	private double price;
 	private String picture;
-	private Date pdate;
+	private String pdate;
 	private int fid;
 	private int typeid;
 	private int syid;
@@ -19,7 +19,7 @@ public class Product {
 	}
 	
 	
-	public Product(int pid, String pname, String pintro, int pcount, double price, String picture, Date pdate, int fid,
+	public Product(int pid, String pname, String pintro, int pcount, double price, String picture, String pdate, int fid,
 			int typeid, int syid) {
 		//super();
 		this.pid = pid;
@@ -83,11 +83,11 @@ public class Product {
 		this.picture = picture;
 	}
 
-	public Date getPdate() {
+	public String getPdate() {
 		return pdate;
 	}
 
-	public void setPdate(Date pdate) {
+	public void setPdate(String pdate) {
 		this.pdate = pdate;
 	}
 

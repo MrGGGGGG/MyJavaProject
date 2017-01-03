@@ -6,9 +6,13 @@ import java.util.List;
 import java.util.Set;
 
 import com.cxs.entity.Admin;
+import com.cxs.entity.Order;
 import com.cxs.entity.Product;
+import com.cxs.entity.User;
 import com.cxs.service.AdminService;
+import com.cxs.service.OrderService;
 import com.cxs.service.ProductService;
+import com.cxs.service.UserService;
 public class AdminAction extends SuperAction{
 	/**
 	 * 
@@ -30,8 +34,8 @@ public class AdminAction extends SuperAction{
 		this.admin = admin;
 	}
 	//2、调用service，生成对象
-	//private UserService userservice = new UserService();
-	//private OrderService orderservice  = new OrderService();
+	private UserService userservice = new UserService();
+	private OrderService orderservice  = new OrderService();
 	private ProductService productservice  = new ProductService();
 	private AdminService adminservice = new AdminService();
 	
@@ -55,6 +59,18 @@ public class AdminAction extends SuperAction{
 	}
 	
 	/**
+	 * 管理员注销登录的方法
+	 */
+	public String logout(){
+		if(session.getAttribute("admininfo")!=null){
+			session.removeAttribute("admininfo");
+			session.removeAttribute("adminid");
+		}
+		return "managerlogin";
+	}
+	
+	
+	/**
 	 * 管理员页面显示所有产品的方法
 	 * @return
 	 */
@@ -72,7 +88,7 @@ public class AdminAction extends SuperAction{
 		}
 	}
 	/**
-	 * 批量删除产品的方法
+	 * 管理员批量删除产品的方法
 	 * @return
 	 */
 	public String Delete(){
@@ -90,16 +106,70 @@ public class AdminAction extends SuperAction{
 		}
 		return "chanpinguanli";
 	}
+	
 	/**
-	 * 删除用户的方法
+	 * 管理员页面显示所有用户的方法
+	 */
+	public String FindAllUser(){
+		List<User> list = new ArrayList<User>();
+		list = userservice.FindAllUser();
+		if(list.size()>0){
+			session.setAttribute("userlist", list);
+			return "yonghuguanli";
+		}else{
+			return "";
+		}
+	}
+	
+	
+	/**
+	 * 管理员批量删除用户的方法 
 	 */
 	public String DeleteUser(){
 		System.out.println("调用了删除用户的方法。");
 		Set<Integer> cids = new HashSet<Integer>();
 		for(int i=0;i<this.getChkName().length;i++){
-			//System.out.println(this.getChkName()[i]);
+			System.out.println(this.getChkName()[i]);
 			cids.add(Integer.valueOf(this.getChkName()[i]));
 		}
-		return "";
+		boolean isdelete = userservice.doRemoveBatch(cids) ;
+		if(isdelete==true){
+			List<User> list = userservice.FindAllUser();
+			session.setAttribute("userlist", list);
+		}
+		return "yonghuguanli";
+	}
+	
+	/**
+	 * 管理员页面显示所有订单的方法
+	 */
+	public String findAllOrder(){
+		System.out.println("调用了显示订单的方法！");
+		List<Order> list = new ArrayList<Order>();
+		list = orderservice.findAllOrder();
+		if(list.size()>0){
+			session.setAttribute("orderlist", list);
+			return "dingdanguanli";
+		}else{
+			return "";
+		}
+	}
+	
+	/**
+	 * 管理员批量删除订单的方法 
+	 */
+	public String DeleteOrder(){
+		System.out.println("调用了删除订单的方法！");
+		Set<String> oids = new HashSet<String>();
+		for(int i=0;i<this.getChkName().length;i++){
+			//System.out.println(this.getChkName()[i]);
+			oids.add(this.getChkName()[i]);
+		}
+		boolean isdelete = orderservice.doRemoveBatch(oids) ;
+		if(isdelete==true){
+			List<Order> list = orderservice.findAllOrder();
+			session.setAttribute("orderlist", list);
+		}
+		return "dingdanguanli";
 	}
 }

@@ -76,9 +76,20 @@
 				<li type="friend" class="list1"><a herf="javascipt">朋友推荐</a></li>
 			</ul>
 		</div>
-		<div class="under-right"></div>
+		<div class="under-right">
+			<div class="sign" style="z-index: -2;">
+				<div class="time" style="z-index: -1;">
+					<span class="week">周六</span> <span class="day">12.3</span>
+				</div>
+				<div class="sign-right"></div>
+			</div>
+			<div class="adver">
+				<a herf=""><img src="images/new year.jpg" width="190"
+					height="110"></a>
+			</div>
+		</div>
 		<div class="under-above">
-			<form action="<%=path %>/message_createnewmessage.action">
+			<form action="<%=path%>/message_createnewmessage.action">
 				<div class="under-above-top">
 					<textarea style="outline: none;width:100%;height: 100%;" name="message_text"></textarea>
 				</div>

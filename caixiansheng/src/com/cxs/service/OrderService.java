@@ -30,4 +30,9 @@ public class OrderService {
 		boolean isdelete = orderdao.doRemoveBatch(onums);
 		return isdelete;
 	}
+	//显示所有订单的业务
+	public List<Order> findAllOrder(){
+		List<Order> list  = orderdao.findAllOrder();
+		return list;
+	}
 }

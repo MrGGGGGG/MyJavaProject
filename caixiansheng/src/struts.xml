@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
+	<constant name="struts.multipart.saveDir" value="/temp"/>
+	<constant name="struts.devMode" value="true" />
 		<!-- 【拦截器配置】 -->
 	<package name="user" namespace="/" extends="struts-default">
 	<!--<interceptors>
@@ -31,6 +33,7 @@
 			<!-- 查找所有产品成功 -->
 			<result name="findallproductsuccess">/fruit.jsp</result>
 			<result name="findallproductfailed">/notfoundproduct.jsp</result>
+			<result name="creatproductsuccess">/chanpinguanli.jsp</result>
 		</action>
 		<action name="search_*" class="com.cxs.action.SearchAction" method="{1}">
 			<result name="searchresult">/searchresult.jsp</result>
@@ -56,6 +59,8 @@
 			<result name="managerindex">/managerindex.jsp</result>
 			<result name="managerlogin">/managerlogin.jsp</result>
 			<result name="chanpinguanli">/chanpinguanli.jsp</result>
+			<result name="yonghuguanli">/yonghuguanli.jsp</result>
+			<result name="dingdanguanli">/dingdanguanli.jsp</result>
 			<result name="weidenglu">/weidenglu.jsp</result>
 		</action>
 	</package>

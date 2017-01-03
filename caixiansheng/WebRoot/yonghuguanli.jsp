@@ -48,10 +48,10 @@ td {
 </head>
 
 <body>
-	<s:if test="#session.list!=null">
+	<s:if test="#session.userlist!=null">
 		<div class="userbox">
-			<form action="<%=path%>/admin_Delete.action">
-				<h4 align="center">所有用户</h4>
+			<form action="<%=path%>/admin_DeleteUser.action">
+				<h4 align="center">所有 用户</h4>
 				<table>
 					<tr>
 						<th>用户编号</th>
@@ -62,7 +62,7 @@ td {
 						<th>注册时间</th>
 						<th>选择</th>
 					</tr>
-					<s:iterator value="#session.list" var="us" id="usr">
+					<s:iterator value="#session.userlist" var="us" id="usr">
 						<tr>
 							<td>${usr.cid}</td>
 							<td>${usr.cname }</td>

@@ -85,6 +85,7 @@ td {
 				</table>
 				<input type="submit" id="deletebutton" value="删除选中">
 			</form>
+			<a href="addproduct.jsp" target="content">添加新商品</a>
 		</div>
 	</s:if>
 	<s:else>
