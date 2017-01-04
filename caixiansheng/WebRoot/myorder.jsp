@@ -23,6 +23,11 @@
 <!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+<link rel="stylesheet" href="./source/base.min.css">
+<link rel="stylesheet" href="./source/common.min.css">
+<link rel="stylesheet" href="./source/bottomanimate.min.css">
+<link rel="stylesheet" href="./source/index.min.css">
+<link rel="stylesheet" href="./source/slider.min.css">
 <style type="text/css">
 .orderbox {
 	margin: auto;
@@ -53,6 +58,94 @@ td {
 </head>
 
 <body>
+
+<div class="topbar">
+		<div class="container clearfix">
+			<ul class="top-login fl">
+				<!--登录注册-->
+				<s:if test="#session.userinfo!=null">
+					<li>欢迎您，${userinfo}&nbsp;&nbsp;&nbsp;</li>
+					<li><a
+						href="${pageContext.request.contextPath}/user_logout.action">注销&nbsp;&nbsp;&nbsp;</a></li>
+					<li><a href="${pageContext.request.contextPath}/order_showMyOrder.action">我的订单</a></li>
+				</s:if>
+				<s:else>
+					<li>
+						<ul class="fl" id="userNoLoginInfo">
+							<li class="label orange">欢迎进入菜鲜生</li>
+							<li class="label p-login"><a title="登录菜鲜生" href="login.jsp">请登录</a></li>
+							<li class="label"><a title="注册菜鲜生" href="<%=path%>/register.jsp">免费注册 </a></li>
+						</ul>
+					</li>
+				</s:else>
+
+			</ul>
+			<ul class="top-nav fr">
+				<li class="pngfix">
+					<div class="label">
+						<a href="">个人主页</a>
+					</div>
+				</li>
+				<li class="dropdown pngfix">
+					<div class="dropdown-label">
+						<i>&nbsp;</i><span>帮助中心</span>
+					</div>
+					<div class="dropdown-layer dd-help-center">
+						<p>
+							<a href="">常见问题</a> <a href="service.jsp">联系客服</a>
+						</p>
+					</div>
+				</li>
+				<li class="dropdown pngfix">
+					<div class="dropdown-label">
+						<i>&nbsp;</i><span>网站导航</span>
+					</div>
+					<div class="dropdown-layer dd-site-map">
+						<p>
+							<a href="" class="fwb">水果</a> <a href="" class="fwb">蔬菜</a> <a
+								href="" class="fwb">零食</a>
+						</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<!--2层-->
+	<div class="header">
+		<!--2-1层-->
+		<div class="container">
+			<div class="site-logo fl">
+				<a href="" title="首页"><img src="./img/index_logo.png"
+					width="388" height="123"></a>
+			</div>
+			<div class="site-search">
+				<form id="searchForm" action="<%=path %>/search_search.action">
+					<div class="search-area">
+						<div class="autoComplete">
+							<input id="keyword" name="keyword" type="text"
+								placeholder="输入货品名称" class="search-inpt">
+						</div>
+						<input type="submit" value="搜 索" class="search-btn">
+					</div>
+				</form>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+		<!--2-2层-->
+		<div class="main-nav">
+			<div class="container">
+				<ul class="clearfix">
+					<li class="market"><span>产品分类</span></li>
+					<li><a href="">定制中心</a></li>
+					<li><a href="">溯源信息</a></li>
+					<li><a href="<%=path %>/message_showAllMessagesById.action">朋友圈</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
 	<a href="<%=path%>/index.jsp">返回主页</a>
 	<s:if test="#session.myorder!=null">
 		<div class="orderbox">

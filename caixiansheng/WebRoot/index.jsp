@@ -743,11 +743,11 @@
 						</p>
 					</div>
 					<div class="imgs">
-						<a href="" title="牛油果专题"> <img src="./img/牛油果.jpg" alt="牛油果专题"
+						<a href="detail.jsp?proid=12" title="牛油果专题"> <img src="./img/牛油果.jpg" alt="牛油果专题"
 							width="224" height="378" style="display: inline;">
 						</a> <a href="" title="榴莲专题"> <img src="./img/榴莲.jpg" alt="榴莲专题"
 							width="154" height="188" style="display: inline;">
-						</a> <a href="" title="香蕉专题"> <img src="./img/香蕉.jpg" alt="香蕉专题"
+						</a> <a href="detail.jsp?proid=8" title="香蕉专题"> <img src="./img/香蕉.jpg" alt="香蕉专题"
 							width="154" height="188" style="display: inline;">
 						</a>
 					</div>

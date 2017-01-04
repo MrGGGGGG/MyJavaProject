@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="css/shopping-cart.css">
 <title>购物车</title>
 
-<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.min2.js"></script>
 <script type="text/javascript" src="js/out-alert.js"></script>
 <script type="text/javascript" src="js/shoppingCart.js"></script>
 

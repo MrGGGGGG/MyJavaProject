@@ -24,17 +24,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<link rel="stylesheet" href="./source/base.min.css">
-<link rel="stylesheet" href="./source/common.min.css">
-<link rel="stylesheet" href="./source/bottomanimate.min.css">
-<link rel="stylesheet" href="./source/index.min.css">
-<link rel="stylesheet" href="./source/slider.min.css">
+	<link rel="stylesheet" href="./source/common.min.css">
+	<link rel="stylesheet" href="./source/bottomanimate.min.css">
+	<link rel="stylesheet" href="./source/index.min.css">
+	<link rel="stylesheet" href="./source/slider.min.css">
 	<style type="text/css">
 #productdetail {
 	margin-top: 100px;
 	width: 600px;
 	height: 550px;
 	margin: auto;
-	border: 1px solid #ff0000;
+	/*border: 1px solid #ddd;*/
 }
 
 #imgcontain {
@@ -116,6 +116,10 @@ font{
 	float:right;
 	
 }
+.op-link{
+	font-size:25px;
+	margin-left: 20px;
+}
 </style>
 </style>
 <script type="text/javascript">
@@ -134,7 +138,7 @@ function joincart(pid){
 	  {
 	  if (xmlhttp.readyState==4 && xmlhttp.status==200)
 	    {
-	   
+	   		alert("添加成功！");
 	    }
 	  }
 	  
@@ -270,10 +274,10 @@ function showeval(epid){
 		</div>
 	</div>
 
-  	<a href="fruit.jsp">返回上一页</a>
-  	<a href="ChatMain.html">联系商家</a>
+  	<a class="op-link" href="fruit.jsp">返回上一页</a>
+  	<a class="op-link" href="ChatMain.html">联系商家</a>
     <div id="productdetail">
-    	<p><%=pct.getPname() %></p>
+    	<p style="font-size: 25px;"><%=pct.getPname() %></p>
     	<div id="imgcontain"><img src="images/<%=pct.getPicture()%>"></div>
     	<div id="info">
     		<table>
@@ -286,7 +290,7 @@ function showeval(epid){
     				<td>商品编号： <%=pct.getPid() %></td>
     			</tr>
     			<tr>
-    				<p>商品介绍：<%=pct.getPintro() %></p>
+    				<p style="font-size: 15px;">商品介绍：<%=pct.getPintro() %></p>
     			</tr>
     			<tr>
     				
@@ -295,19 +299,113 @@ function showeval(epid){
     		
     		<div style="width:100px;height:10px;margin:100px;display: inline;">
     			<form action="AddOrder.jsp?proid=<%=pct.getPid()%>" method="post">
-              		 <font>数量:</font><input id="num1"type="number" value="1" name="num2" min="1" max="<%=pct.getPcount()%>"/>
+              		 <br><font>数量:</font><input id="num1"type="number" value="1" name="num2" min="1" max="<%=pct.getPcount()%>"/>
               		 <br><br>
                     <input class="buybtn" type="submit" value="立即购买"><br>
                 	<input  class="buybtn" type="button" value="加入购物车" onclick="joincart(<%=pct.getPid()%>)">          
                 </form>
     		</div>
     	</div>
+    	 <%session.setAttribute("epid", proid) ;%>
+    	 <br><br>
+    	 <a class="op-link" href= "eva_selecteva?epid=<%=pct.getPid()%>">发表评论</a>
     </div>
     
-    <%session.setAttribute("epid", proid) ;%>
-    <a href= "eva_selecteva?epid=<%=pct.getPid()%>">发表评论</a>
     
-    
-
+	<div class="footer">
+		<div class="container">
+			<div class="quick-nav">
+				<ul class="icon clearfix">
+					<li class="i1"><img src="./img/图一.gif" alt="资源多">
+						<p>
+							<span>资源多</span><span>海量信息免费发</span>
+						</p></li>
+					<li class="i2"><img src="./img/图二.gif" alt="优惠大">
+						<p>
+							<span>优惠大</span><span>挑战市场超低价</span>
+						</p></li>
+					<li class="i3"><img src="./img/图三.gif" alt="销售广">
+						<p>
+							<span>销售广</span><span>采购便捷一站式</span>
+						</p></li>
+					<li class="i4"><img src="./img/图四.gif" alt="更安全">
+						<p>
+							<span>更安全</span><span>实名认证更安心</span>
+						</p></li>
+				</ul>
+				<div class="list clearfix">
+					<dl class="clearfix">
+						<dt>新手指南</dt>
+						<dd>
+							<a href="" rel="nofollow">注册新用户</a>
+						</dd>
+						<dd>
+							<a href="" rel="nofollow">实名认证</a>
+						</dd>
+						<dd>
+							<a href="" rel="nofollow">找回密码</a>
+						</dd>
+						<dd>
+							<a href="" rel="nofollow">帮助中心</a>
+						</dd>
+					</dl>
+					<dl class="clearfix">
+						<dt>采购商服务</dt>
+						<dd>
+							<a href="" rel="nofollow">找供应</a>
+						</dd>
+						<dd>
+							<a href="" rel="nofollow">发布采购</a>
+						</dd>
+					</dl>
+					<dl class="clearfix">
+						<dt>供应商服务</dt>
+						<dd>
+							<a href="" rel="nofollow">找采购</a>
+						</dd>
+						<dd>
+							<a href="" rel="nofollow">发布供应</a>
+						</dd>
+					</dl>
+					<dl class="clearfix">
+						<dt>交易安全</dt>
+						<dd>
+							<a href="" rel="nofollow">卖家防骗</a>
+						</dd>
+						<dd>
+							<a href="" rel="nofollow">绑定银行卡</a>
+						</dd>
+						<dd>
+							<a href="" rel="nofollow">买家防骗</a>
+						</dd>
+					</dl>
+				</div>
+			</div>
+			<div class="ptb20 clearfix">
+				<div class="foot-qr clearfix">
+					<div class="qrcode">
+						<img src="./img/二维码.png" alt="手机惠农网">
+						<p>
+							<span>扫一扫下载</span><span>手机菜鲜生</span>
+						</p>
+					</div>
+				</div>
+				<ul class="foot-nav clearfix">
+					<li><a href="" rel="nofollow">关于我们</a></li>
+					<li><a href="" rel="nofollow">法律声明</a></li>
+					<li><a href="" rel="nofollow">使用协议</a></li>
+					<li><a href="" rel="nofollow">版权隐私</a></li>
+					<li><a href="" rel="nofollow">友情链接</a></li>
+					<li><a href="" rel="nofollow">成功案例</a></li>
+					<li><a href="" rel="nofollow">网站地图</a></li>
+				</ul>
+				<div class="copyright">
+					<p>服务热线：000-000-0000</p>
+					<p>©2016-2030</p>
+					
+				</div>
+			</div>
+		</div>
+	</div>
   </body>
 </html>
